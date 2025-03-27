@@ -1,0 +1,58 @@
+name: Main
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+jobs:
+  lint-and-format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pre-commit
+          key: pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Run pre-commit all
+        run: uvx pre-commit run --all
+
+  tests-and-type-check:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
+      fail-fast: false
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install Python dependencies
+        run: uv sync --frozen
+        shell: bash
+
+      - name: Run tests
+        run: uv run pytest --cov --cov-config=pyproject.toml --cov-report=xml
+
+      - name: Check typing
+        run: uv run pyright
+
+      - name: Upload coverage reports to Codecov with GitHub Action on Python 3.13
+        uses: codecov/codecov-action@v4
+        if: ${{ matrix.python-version == '3.13' }}
