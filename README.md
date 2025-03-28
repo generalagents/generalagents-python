@@ -34,6 +34,7 @@ observation = computer.observe()
 
 for _ in range(25):  # max actions
     action = session.plan(observation)
+    print(f"Executing: {action}")
     if action.kind == "stop":
         break
     observation = computer.execute(action)

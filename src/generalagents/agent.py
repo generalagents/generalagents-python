@@ -48,7 +48,6 @@ class Session:
 
         action = res.json()["action"]
         self.previous_actions.append(action)
-        print(f"Received action {action}")
         return cattrs.structure(action, Action)  # pyright: ignore [reportArgumentType] https://peps.python.org/pep-0747
 
 
