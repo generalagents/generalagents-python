@@ -32,8 +32,8 @@ class Session:
 
     def plan(self, observation: Image.Image) -> Action:
         buffer = BytesIO()
-        observation.save(buffer, format="PNG")
-        image_url = f"data:image/png;base64,{base64.b64encode(buffer.getvalue()).decode('utf8')}"
+        observation.save(buffer, format="WEBP")
+        image_url = f"data:image/webp;base64,{base64.b64encode(buffer.getvalue()).decode('utf8')}"
 
         data = {
             "model": self.model,
