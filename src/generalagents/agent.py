@@ -1,4 +1,5 @@
 import base64
+import os
 from io import BytesIO
 
 import cattrs
@@ -54,11 +55,17 @@ class Agent:
     def __init__(
         self,
         model: str,
-        api_key: str,
+        api_key: str = os.getenv("GENERALAGENTS_API_KEY", ""),
         temperature: float = 0.3,
         max_previous_actions: int = 20,
     ):
         """"""
+        if not api_key:
+            msg = (
+                "No API key provided, please set an environment variable "
+                "GENERALAGENTS_API_KEY or provide it to the Agent constructor"
+            )
+            raise ValueError(msg)
         self.model = model
         self.api_key = api_key
         self.temperature = temperature
