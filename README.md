@@ -14,9 +14,6 @@ General Agents Python API client is available as a python package on PyPI:
 
 ```bash
 pip install generalagents
-
-# or with uv
-uv add generalagents
 ```
 
 # Usage
@@ -25,19 +22,17 @@ This client includes both an interface for calling the agent, and a simple compu
 loop:
 
 ```python
-import os
-
 from generalagents import Agent
 from generalagents.macos import Computer
 
-agent = Agent(model="ace-small", api_key=os.getenv('GENERALAGENTS_API_KEY'))
+agent = Agent(model="ace-small", api_key='your-api-key-here')
 computer = Computer()
 
 instruction = "Star the generalagents-python github repository"
 session = agent.start(instruction)
 observation = computer.observe()
 
-for _ in range(50):  # max actions
+for _ in range(25):  # max actions
     action = session.plan(observation)
     if action.kind == "stop":
         break
