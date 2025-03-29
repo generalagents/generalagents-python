@@ -6,7 +6,7 @@ import cattrs
 import httpx
 from PIL import Image
 
-from generalagents.action import Action
+from generalagents.action import Action, ActionKind
 
 
 class Session:
@@ -30,7 +30,12 @@ class Session:
         self.previous_actions = []
         self.temperature = temperature
 
-    def plan(self, observation: Image.Image) -> Action:
+    def plan(
+        self,
+        observation: Image.Image,
+        *,
+        allowed_action_kinds: list[ActionKind] | None = None,
+    ) -> Action:
         buffer = BytesIO()
         observation.save(buffer, format="WEBP")
         image_url = f"data:image/webp;base64,{base64.b64encode(buffer.getvalue()).decode('utf8')}"
@@ -41,6 +46,7 @@ class Session:
             "image_url": image_url,
             "previous_actions": self.previous_actions[-self.max_previous_actions :],
             "temperature": self.temperature,
+            "allowed_action_kinds": allowed_action_kinds,
         }
 
         res = self.client.post("/v1/control/predict", json=data)
