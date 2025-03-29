@@ -105,6 +105,7 @@ class ActionDrag:
 class ActionScroll:
     kind: Literal["scroll"]
     scroll_delta: int
+    coordinate: Coordinate
 
 
 @dataclass
