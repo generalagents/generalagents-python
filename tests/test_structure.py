@@ -66,8 +66,8 @@ def test_structure():
     assert action == cattrs.structure(dict_, Action)  # pyright: ignore [reportArgumentType]
 
     # Test ActionScroll
-    dict_ = {"kind": "scroll", "scroll_delta": -100}
-    action = ActionScroll(kind="scroll", scroll_delta=-100)
+    dict_ = {"kind": "scroll", "scroll_delta": -100, "coordinate": {"x": 100, "y": 200}}
+    action = ActionScroll(kind="scroll", scroll_delta=-100, coordinate=Coordinate(x=100, y=200))
     assert action == cattrs.structure(dict_, Action)  # pyright: ignore [reportArgumentType]
 
     # Test ActionWait
