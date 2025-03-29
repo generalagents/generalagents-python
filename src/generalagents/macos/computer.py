@@ -76,7 +76,8 @@ class Computer:
                 pyautogui.moveTo(*self._scaled(start))
                 pyautogui.dragTo(*self._scaled(end), duration=0.5)
 
-            case ActionScroll(kind="scroll", scroll_delta=delta):
+            case ActionScroll(kind="scroll", scroll_delta=delta, coordinate=coord):
+                pyautogui.moveTo(*self._scaled(coord))
                 pyautogui.scroll(float(delta * self.scale_factor))
 
             case ActionWait(kind="wait"):
