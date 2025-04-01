@@ -23,6 +23,7 @@ from generalagents.action import (
 )
 
 pyautogui.FAILSAFE = True  # Move mouse to corner to abort
+pyautogui.PAUSE = 0.001  # We are waiting manually in the code
 
 
 class Computer:
