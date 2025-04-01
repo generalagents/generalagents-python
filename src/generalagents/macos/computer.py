@@ -52,7 +52,10 @@ class Computer:
     def _execute_action(self, action: Action) -> None:
         match action:
             case ActionKeyPress(kind="key_press", keys=keys) if keys:
-                pyautogui.hotkey(*keys)
+                for key in keys:
+                    pyautogui.keyDown(key)
+                for key in reversed(keys):
+                    pyautogui.keyUp(key)
 
             case ActionType(kind="type", text=text) if text:
                 pyautogui.write(text)
