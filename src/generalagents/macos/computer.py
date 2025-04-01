@@ -5,6 +5,7 @@ from fractions import Fraction
 
 import pyautogui
 from PIL import Image
+from pytweening import easeInOutQuad
 
 from generalagents.action import (
     Action,
@@ -24,6 +25,7 @@ from generalagents.action import (
 
 pyautogui.FAILSAFE = True  # Move mouse to corner to abort
 pyautogui.PAUSE = 0.001  # We are waiting manually in the code
+MOUSE_SETTINGS = {"duration": 0.101, "tween": easeInOutQuad}  # duration <= 0.1 is treated as 0 by pyautogui
 
 
 class Computer:
@@ -62,19 +64,19 @@ class Computer:
                 pyautogui.write(text)
 
             case ActionLeftClick(kind="left_click", coordinate=coord):
-                pyautogui.click(*self._scaled(coord), button="left")
+                pyautogui.click(*self._scaled(coord), button="left", **MOUSE_SETTINGS)
 
             case ActionRightClick(kind="right_click", coordinate=coord):
-                pyautogui.click(*self._scaled(coord), button="right")
+                pyautogui.click(*self._scaled(coord), button="right", **MOUSE_SETTINGS)
 
             case ActionDoubleClick(kind="double_click", coordinate=coord):
-                pyautogui.doubleClick(*self._scaled(coord))
+                pyautogui.doubleClick(*self._scaled(coord), **MOUSE_SETTINGS)
 
             case ActionTripleClick(kind="triple_click", coordinate=coord):
-                pyautogui.tripleClick(*self._scaled(coord))
+                pyautogui.tripleClick(*self._scaled(coord), **MOUSE_SETTINGS)
 
             case ActionMouseMove(kind="mouse_move", coordinate=coord):
-                pyautogui.moveTo(*self._scaled(coord))
+                pyautogui.moveTo(*self._scaled(coord), **MOUSE_SETTINGS)
 
             case ActionDrag(kind="drag", drag_start=start, drag_end=end):
                 pyautogui.moveTo(*self._scaled(start))
