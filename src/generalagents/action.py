@@ -4,6 +4,8 @@ from typing import Literal, TypeAlias
 
 @dataclass
 class Coordinate:
+    """Represents a point on the screen with x and y coordinates."""
+
     x: int
     y: int
 
@@ -54,48 +56,64 @@ ActionKind: TypeAlias = Literal[
 
 @dataclass
 class ActionKeyPress:
+    """Represents pressing one or more keyboard keys simultaneously."""
+
     kind: Literal["key_press"]
     keys: list[KeyboardKey]
 
 
 @dataclass
 class ActionType:
+    """Represents typing a sequence of characters."""
+
     kind: Literal["type"]
     text: str
 
 
 @dataclass
 class ActionLeftClick:
+    """Represents a left mouse button click at a specific coordinate."""
+
     kind: Literal["left_click"]
     coordinate: Coordinate
 
 
 @dataclass
 class ActionRightClick:
+    """Represents a right mouse button click at a specific coordinate."""
+
     kind: Literal["right_click"]
     coordinate: Coordinate
 
 
 @dataclass
 class ActionDoubleClick:
+    """Represents a double click with the left mouse button at a specific coordinate."""
+
     kind: Literal["double_click"]
     coordinate: Coordinate
 
 
 @dataclass
 class ActionTripleClick:
+    """Represents a triple click with the left mouse button at a specific coordinate."""
+
     kind: Literal["triple_click"]
     coordinate: Coordinate
 
 
 @dataclass
 class ActionMouseMove:
+    """Represents moving the mouse cursor to a specific coordinate without clicking."""
+
     kind: Literal["mouse_move"]
     coordinate: Coordinate
 
 
 @dataclass
 class ActionDrag:
+    """Represents dragging the mouse from one coordinate to another while holding the left button."""
+
     kind: Literal["drag"]
     drag_start: Coordinate
     drag_end: Coordinate
@@ -103,6 +121,8 @@ class ActionDrag:
 
 @dataclass
 class ActionScroll:
+    """Represents scrolling the mouse wheel at a specific coordinate with the given delta."""
+
     kind: Literal["scroll"]
     scroll_delta: int
     coordinate: Coordinate
@@ -110,11 +130,15 @@ class ActionScroll:
 
 @dataclass
 class ActionWait:
+    """Represents a pause in execution to wait for UI changes or animations."""
+
     kind: Literal["wait"]
 
 
 @dataclass
 class ActionStop:
+    """Represents stopping or completing the current task sequence."""
+
     kind: Literal["stop"]
 
 
