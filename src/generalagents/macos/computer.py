@@ -30,6 +30,17 @@ MOUSE_SETTINGS = {"duration": 0.101, "tween": easeInOutQuad}  # duration <= 0.1 
 
 class Computer:
     def __init__(self, pause_after_action: float = 0.1, pause_for_wait: float = 0.1):
+        """Initialize a Computer interface for macOS control.
+
+        Args:
+            pause_after_action: Time in seconds to wait after executing an action.
+            pause_for_wait: Time in seconds to wait when executing a wait action.
+
+        Note:
+            The scale_factor is automatically calculated by dividing the screen size by 1200,
+            which helps normalize coordinates for different screen resolutions. This way,
+            actions specified for a 1200px reference screen can be scaled to the actual screen.
+        """
         self.pause_after_action = pause_after_action
         self.pause_for_wait = pause_for_wait
 
@@ -44,7 +55,15 @@ class Computer:
             return Image.open(f.name).resize(self.size)
 
     def execute(self, action: Action) -> Image.Image:
-        """Execute a control action and observe the resulting state of the computer."""
+        """Execute a control action and observe the resulting state of the computer.
+
+        Args:
+            action: The action to execute (e.g., mouse click, keyboard input).
+
+        Returns:
+            Image.Image: A screenshot of the screen after the action has been performed,
+            allowing observation of the effect of the action.
+        """
         self._execute_action(action)
         time.sleep(self.pause_after_action)
         return self.observe()
