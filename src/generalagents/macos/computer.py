@@ -35,16 +35,14 @@ class Computer:
         Args:
             pause_after_action: Time in seconds to wait after executing an action.
             pause_for_wait: Time in seconds to wait when executing a wait action.
-
-        Note:
-            The scale_factor is automatically calculated by dividing the screen size by 1200,
-            which helps normalize coordinates for different screen resolutions. This way,
-            actions specified for a 1200px reference screen can be scaled to the actual screen.
         """
         self.pause_after_action = pause_after_action
         self.pause_for_wait = pause_for_wait
 
         w, h = pyautogui.size()
+
+        # On high-DPI displays (e.g. Retina), pyautogui.size() may return scaled-down dimensions.
+        # To standardize, we calculate a scale factor based on the maximum dimension and resize accordingly.
         self.scale_factor = Fraction(max(w, h), 1200)
         self.size = (round(w / self.scale_factor), round(h / self.scale_factor))
 
@@ -61,7 +59,7 @@ class Computer:
             action: The action to execute (e.g., mouse click, keyboard input).
 
         Returns:
-            Image.Image: A screenshot of the screen after the action has been performed,
+            A screenshot of the screen after the action has been performed,
             allowing observation of the effect of the action.
         """
         self._execute_action(action)
