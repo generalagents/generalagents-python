@@ -30,7 +30,7 @@ MOUSE_SETTINGS = {"duration": 0.101, "tween": easeInOutQuad}  # duration <= 0.1 
 
 class Computer:
     def __init__(self, pause_after_action: float = 0.1, pause_for_wait: float = 0.1):
-        """Initialize a Computer interface for macOS control.
+        """A Computer interface for macOS control.
 
         Args:
             pause_after_action: Time in seconds to wait after executing an action.

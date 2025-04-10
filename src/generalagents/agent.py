@@ -19,7 +19,7 @@ class Session:
         temperature: float,
         max_previous_actions: int,
     ):
-        """Initialize a Session for interacting with the GeneralAgents API.
+        """A Session for interacting with the GeneralAgents API.
 
         Args:
             model: The model identifier to use for predictions.
