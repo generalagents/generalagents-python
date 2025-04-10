@@ -5,7 +5,7 @@ from typing import Literal, TypeAlias
 @dataclass
 class Coordinate:
     """Represents a point on the screen with x and y coordinates.
-    
+
     x is increasing rightwards and y is increasing downwards
     """
 
