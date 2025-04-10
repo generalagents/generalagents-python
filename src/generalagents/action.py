@@ -4,6 +4,11 @@ from typing import Literal, TypeAlias
 
 @dataclass
 class Coordinate:
+    """Represents a point on the screen with x and y coordinates.
+
+    x is increasing rightwards and y is increasing downwards
+    """
+
     x: int
     y: int
 
@@ -54,48 +59,64 @@ ActionKind: TypeAlias = Literal[
 
 @dataclass
 class ActionKeyPress:
+    """Press one or more keyboard keys simultaneously."""
+
     kind: Literal["key_press"]
     keys: list[KeyboardKey]
 
 
 @dataclass
 class ActionType:
+    """Type a sequence of characters."""
+
     kind: Literal["type"]
     text: str
 
 
 @dataclass
 class ActionLeftClick:
+    """Left click the mouse button at a specific coordinate."""
+
     kind: Literal["left_click"]
     coordinate: Coordinate
 
 
 @dataclass
 class ActionRightClick:
+    """Right click the mouse button at a specific coordinate."""
+
     kind: Literal["right_click"]
     coordinate: Coordinate
 
 
 @dataclass
 class ActionDoubleClick:
+    """Double click the left mouse button at a specific coordinate."""
+
     kind: Literal["double_click"]
     coordinate: Coordinate
 
 
 @dataclass
 class ActionTripleClick:
+    """Triple click the left mouse button at a specific coordinate."""
+
     kind: Literal["triple_click"]
     coordinate: Coordinate
 
 
 @dataclass
 class ActionMouseMove:
+    """Move the mouse cursor to a specific coordinate without clicking."""
+
     kind: Literal["mouse_move"]
     coordinate: Coordinate
 
 
 @dataclass
 class ActionDrag:
+    """Drag the mouse from one coordinate to another while holding the left button."""
+
     kind: Literal["drag"]
     drag_start: Coordinate
     drag_end: Coordinate
@@ -103,6 +124,8 @@ class ActionDrag:
 
 @dataclass
 class ActionScroll:
+    """Scroll the mouse wheel at a specific coordinate with the given delta."""
+
     kind: Literal["scroll"]
     scroll_delta: int
     coordinate: Coordinate
@@ -110,11 +133,15 @@ class ActionScroll:
 
 @dataclass
 class ActionWait:
+    """Pause execution to wait for UI changes or animations."""
+
     kind: Literal["wait"]
 
 
 @dataclass
 class ActionStop:
+    """Stop or complete the current task sequence."""
+
     kind: Literal["stop"]
 
 
