@@ -1,6 +1,6 @@
 [project]
 name = "generalagents"
-version = "0.1.0"
+version = "0.1.1"
 description = "General Agents client library"
 authors = [{ name = "General Agents", email = "dev@generalagents.com" }]
 readme = "README.md"
